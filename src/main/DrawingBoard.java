@@ -91,17 +91,24 @@ public class DrawingBoard extends JPanel {
 
 		@Override
 		public void mousePressed(MouseEvent e) {
+			int count = 0;
 			for (GObject g : gObjects) {
 				g.deselected();
 				if (g.pointerHit(e.getX(), e.getY())) {
 					target = g;
 					target.selected();
+					count++;
 				}
-				x = e.getX();
-				y = e.getY();
+				if (count == 0) {
+					deselectAll();
+				} else {
+					x = e.getX();
+					y = e.getY();
+				}
+				count = 0;
 				repaint();
 			}
-			
+
 		}
 
 		@Override
